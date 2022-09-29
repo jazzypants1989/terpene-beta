@@ -1,26 +1,28 @@
-import React from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import Layout from "./components/Home/Layout";
+import Home from "./components/Home/Home";
+import Pages from "./components/Pages/Pages";
+import Page from "./components/Pages/Page/Page";
+import Form from "./components/Form/Form";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
 
 const App = () => {
   return (
-    <Container maxidth="lg">
-      <AppBar position="static" color="inherit">
-        <Typography variant="h2" align="center">The Cannabis Terpene Reference Guide</Typography>
-      </AppBar>
-      <Grow in>
-        <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            <Grid item xs={12} sm={7}>
-              <Posts />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-    </Container>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="pages" element={<Pages />}>
+          <Route path=":id" element={<Page />} />
+        </Route>
+        <Route path="form" element={<Form />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;
