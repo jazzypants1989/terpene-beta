@@ -1,50 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = {
-  users: [
-    {
-      id: 1,
-      username: "admin",
-      email: "jessepence@gmail.com",
-      password: "J3llyb3@ns!",
-    },
-    {
-      id: 2,
-      username: "littlejesse",
-      email: "littlejesse@gmail.com",
-      password: "J3llyb3@n$",
-    },
-  ],
-  status: "idle",
-  error: null,
-};
+const USERS_URL = "http://localhost:2121/users";
+
+const initialState = [];
+
+export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
+  const response = await axios.get(USERS_URL);
+  return response.data;
+});
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    usersAdded: {
-      reducer(state, action) {
-        state.users.push(action.payload);
-      },
-      prepare(username, email, password) {
-        return {
-          payload: {
-            username,
-            email,
-            password,
-          },
-        };
-      },
-    },
-    getUsers(state, action) {
-      state.users = action.payload;
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        return action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        console.log(action.error.message);
+      });
   },
 });
 
-export const { usersAdded, getUsers } = usersSlice.actions;
-
-export const selectAllUsers = (state) => state.users.users;
+export const { userAdded } = usersSlice.actions;
 
 export default usersSlice.reducer;
+
+export const selectAllUsers = (state) => state.users;

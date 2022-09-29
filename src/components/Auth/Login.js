@@ -17,6 +17,14 @@ function Login() {
     }).then((res) => console.log(res));
   };
 
+  const getUser = () => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:2121/users",
+    }).then((res) => console.log(res));
+  };
+
   return (
     <div>
       <h1>Login</h1>
@@ -27,6 +35,8 @@ function Login() {
       />
 
       <button onClick={login}>Submit</button>
+
+      <button onClick={getUser}>Get User</button>
     </div>
   );
 }
