@@ -1,7 +1,5 @@
 import React from "react";
-import Pages from "./components/Pages/Pages";
-import Form from "./components/Form/Form";
-import weed from "./images/weed.png";
+import weed from "../../images/weed.png";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import useStyles from "./styles";
 
@@ -23,12 +21,8 @@ const Feed = () => {
             alignItems="stretch"
             spacing={3}
           >
-            <Grid item xs={12} sm={7}>
-              <Pages />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form />
-            </Grid>
+            <Grid item xs={12} sm={7}></Grid>
+            <Grid item xs={12} sm={4}></Grid>
           </Grid>
         </Container>
       </Grow>
